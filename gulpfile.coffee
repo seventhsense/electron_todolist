@@ -36,7 +36,7 @@ gulp.task 'templates', ->
     .on('finish', -> gutil.log 'templates.js done')
 
 gulp.task 'concat', ['app', 'templates'], ->
-  gulp.src ['tmp/templates.js', 'tmp/app.js']
+  gulp.src ['tmp/vendor.js', 'tmp/templates.js', 'tmp/app.js']
     .pipe(concat('index.js'))
     .pipe(gulp.dest('dist'))
     .on('finish', -> gutil.log 'index.js done')

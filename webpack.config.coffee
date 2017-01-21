@@ -1,11 +1,14 @@
-module.exports = 
-  entry: './coffee/namespace.coffee'
+webpack = require 'webpack'
+module.exports =
+  entry: './coffee/vendor.coffee'
   output:
-    filename: './dist/vendor.js'
-
+    filename: './tmp/vendor.js'
   resolve:
     extensions: ['', '.js', '.coffee']
   module:
     loaders: [
       test: /\.coffee$/, loader: 'coffee-loader'
     ]
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+  ]
