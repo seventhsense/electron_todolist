@@ -47,7 +47,7 @@ gulp.task 'sass', ->
     .pipe(gulp.dest('./dist/fonts'))
   gulp.src 'vendor/photon/sass/photon.scss'
     .pipe(sass())
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/css'))
     .on('finish', -> gutil.log 'photon.css done')
 
 gulp.task 'watch', ->
