@@ -2,7 +2,7 @@ class MyApp.Views.Task extends Backbone.Marionette.View
   template: JST['task']
   tagName: 'li'
   className: ->
-    'done' if @model.get('done')
+    if @model.get('done') then 'done list-group-item' else 'list-group-item'
 
   ui:
     checkbox: 'input[type=checkbox]'

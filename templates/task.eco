@@ -1,10 +1,9 @@
 <input type="checkbox" id="task<%= @id %>_done"
-<% if @done :%>
-checked="true"
-<% end %>
-/>
-<span class="task_content" id="task<%= @id %>_content">
-
+  <% if @done :%>
+  checked="true"
+  <% end %>
+class="media-object pull-left"/>
+<span class="task_content media-body"
+  id="task<%= @id %>_content">
 <%= @content %>
-
 </span>

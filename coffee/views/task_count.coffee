@@ -1,6 +1,7 @@
 class MyApp.Views.TaskCount extends Backbone.Marionette.View
   template: JST['task_count']
-  tagName: 'p'
+  tagName: 'h1'
+  className: 'title'
   templateContext: ->
     all: @collection.length
     done: @collection.where(done: true).length

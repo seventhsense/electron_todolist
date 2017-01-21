@@ -133,7 +133,7 @@ window.JST["layout"] = function (__obj) {
   }
   (function() {
     (function() {
-      __out.push('<div id="task_form"></div>\n<div id="task_list"></div>\n<div id="task_count"></div>\n<div id="clear"></div>\n');
+      __out.push('<header class="toolbar toolbar-header">\n  <div class="toolbar-actions">\n    <div id="task_form"></div>\n    <div id="clear" class="pull-right"></div>\n    <div id="task_count"></div>\n  </div>\n</header>\n<div id="task_list"></div>\n');
     
     }).call(this);
     
@@ -188,21 +188,21 @@ window.JST["task"] = function (__obj) {
     
       __out.push(__sanitize(this.id));
     
-      __out.push('_done"\n');
+      __out.push('_done"\n  ');
     
       if (this.done) {
-        __out.push('\nchecked="true"\n');
+        __out.push('\n  checked="true"\n  ');
       }
     
-      __out.push('\n/>\n<span class="task_content" id="task');
+      __out.push('\nclass="media-object pull-left"/>\n<span class="task_content media-body"\n  id="task');
     
       __out.push(__sanitize(this.id));
     
-      __out.push('_content">\n\n');
+      __out.push('_content">\n');
     
       __out.push(__sanitize(this.content));
     
-      __out.push('\n\n</span>\n');
+      __out.push('\n</span>\n');
     
     }).call(this);
     
@@ -367,9 +367,11 @@ window.JST["task_count"] = function (__obj) {
       return ClearButton.__super__.constructor.apply(this, arguments);
     }
 
-    ClearButton.prototype.template = _.template('Clear');
+    ClearButton.prototype.template = _.template('<span class="icon icon-trash" id="trash"></span>  Clear');
 
     ClearButton.prototype.tagName = 'button';
+
+    ClearButton.prototype.className = 'btn btn-negative';
 
     ClearButton.prototype.events = {
       'click': 'onClick'
@@ -524,7 +526,9 @@ window.JST["task_count"] = function (__obj) {
 
     Task.prototype.className = function() {
       if (this.model.get('done')) {
-        return 'done';
+        return 'done list-group-item';
+      } else {
+        return 'list-group-item';
       }
     };
 
@@ -579,7 +583,9 @@ window.JST["task_count"] = function (__obj) {
 
     TaskCount.prototype.template = JST['task_count'];
 
-    TaskCount.prototype.tagName = 'p';
+    TaskCount.prototype.tagName = 'h1';
+
+    TaskCount.prototype.className = 'title';
 
     TaskCount.prototype.templateContext = function() {
       return {
@@ -619,6 +625,8 @@ window.JST["task_count"] = function (__obj) {
     }
 
     TaskList.prototype.tagName = 'ul';
+
+    TaskList.prototype.className = 'list-group';
 
     TaskList.prototype.childView = MyApp.Views.Task;
 
