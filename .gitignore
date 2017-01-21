@@ -2,3 +2,5 @@ node_modules
 app2*
 tmp
 *.db
+vendor
+
