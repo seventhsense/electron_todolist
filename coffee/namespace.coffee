@@ -15,8 +15,6 @@ class MyApp.Application extends Backbone.Marionette.Application
 
   start: ->
     main = @getRegion()
-    model = new MyApp.Models.Hello
-      hello: 'Hello World'
     main.show new MyApp.Views.Layout
       model: model
 
