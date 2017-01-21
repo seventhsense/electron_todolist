@@ -4,6 +4,7 @@ concat  = require 'gulp-concat'
 gutil   = require 'gulp-util'
 plumber = require 'gulp-plumber'
 eco     = require 'gulp-eco'
+sass    = require 'gulp-sass'
 
 gulp.task 'main', ->
   gulp.src('./coffee/main.coffee')
@@ -40,6 +41,14 @@ gulp.task 'concat', ['app', 'templates'], ->
     .pipe(concat('index.js'))
     .pipe(gulp.dest('dist'))
     .on('finish', -> gutil.log 'index.js done')
+
+gulp.task 'sass', ->
+  gulp.src 'vendor/photon/fonts/*.*'
+    .pipe(gulp.dest('./dist/fonts'))
+  gulp.src 'vendor/photon/sass/photon.scss'
+    .pipe(sass())
+    .pipe(gulp.dest('./dist'))
+    .on('finish', -> gutil.log 'photon.css done')
 
 gulp.task 'watch', ->
   gulp.watch('coffee/main.coffee', ['main'])

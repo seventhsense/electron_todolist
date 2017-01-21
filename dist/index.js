@@ -39,57 +39,6 @@ function r(e){return o.result(e,"store")||o.result(e.collection,"store")}var i=n
 if (!window.JST) {
   window.JST = {};
 }
-window.JST["clear_button"] = function (__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
-      __out.push('<button>Clear</button>\n');
-    
-    }).call(this);
-    
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
-
-if (!window.JST) {
-  window.JST = {};
-}
 window.JST["edit_form"] = function (__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
@@ -134,57 +83,6 @@ window.JST["edit_form"] = function (__obj) {
       __out.push(__sanitize(this.content));
     
       __out.push('"\n/>\n');
-    
-    }).call(this);
-    
-  }).call(__obj);
-  __obj.safe = __objSafe, __obj.escape = __escape;
-  return __out.join('');
-};
-
-if (!window.JST) {
-  window.JST = {};
-}
-window.JST["form"] = function (__obj) {
-  if (!__obj) __obj = {};
-  var __out = [], __capture = function(callback) {
-    var out = __out, result;
-    __out = [];
-    callback.call(this);
-    result = __out.join('');
-    __out = out;
-    return __safe(result);
-  }, __sanitize = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else if (typeof value !== 'undefined' && value != null) {
-      return __escape(value);
-    } else {
-      return '';
-    }
-  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
-  __safe = __obj.safe = function(value) {
-    if (value && value.ecoSafe) {
-      return value;
-    } else {
-      if (!(typeof value !== 'undefined' && value != null)) value = '';
-      var result = new String(value);
-      result.ecoSafe = true;
-      return result;
-    }
-  };
-  if (!__escape) {
-    __escape = __obj.escape = function(value) {
-      return ('' + value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    };
-  }
-  (function() {
-    (function() {
-      __out.push('<input type="text" id=\'task_input\'>\n');
     
     }).call(this);
     
@@ -469,7 +367,9 @@ window.JST["task_count"] = function (__obj) {
       return ClearButton.__super__.constructor.apply(this, arguments);
     }
 
-    ClearButton.prototype.template = JST['clear_button'];
+    ClearButton.prototype.template = _.template('Clear');
+
+    ClearButton.prototype.tagName = 'button';
 
     ClearButton.prototype.events = {
       'click': 'onClick'
@@ -537,7 +437,7 @@ window.JST["task_count"] = function (__obj) {
       return TaskForm.__super__.constructor.apply(this, arguments);
     }
 
-    TaskForm.prototype.template = JST['form'];
+    TaskForm.prototype.template = _.template('<input type="text" id="task_input">');
 
     TaskForm.prototype.events = {
       'keydown #task_input': 'addTask'
@@ -576,8 +476,7 @@ window.JST["task_count"] = function (__obj) {
 
     Layout.prototype.initialize = function() {
       this.collection = new MyApp.Collections.Tasks;
-      this.collection.fetch();
-      return console.log(this.collection);
+      return this.collection.fetch();
     };
 
     Layout.prototype.regions = {
