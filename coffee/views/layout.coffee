@@ -3,7 +3,6 @@ class MyApp.Views.Layout extends Backbone.Marionette.View
   initialize: ->
     @collection = new MyApp.Collections.Tasks
     @collection.fetch()
-    console.log @collection
 
   regions:
     form         : '#task_form'

@@ -1,5 +1,6 @@
 class MyApp.Views.ClearButton extends Backbone.Marionette.View
-  template: JST['clear_button']
+  template: _.template 'Clear'
+  tagName: 'button'
   events:
     'click': 'onClick'
 

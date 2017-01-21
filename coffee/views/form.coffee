@@ -1,5 +1,5 @@
 class MyApp.Views.TaskForm extends Backbone.Marionette.View
-  template: JST['form']
+  template: _.template '<input type="text" id="task_input">'
   events:
     'keydown #task_input': 'addTask'
   addTask: (event)->
