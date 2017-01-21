@@ -10,7 +10,7 @@ gulp.task 'main', ->
     .pipe(plumber())
     .pipe(coffee()).on('error', gutil.log)
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('.'))
+    .pipe(gulp.dest('dist'))
     .on('finish', -> gutil.log 'main.js done')
 
 gulp.task 'app', ->
@@ -38,7 +38,7 @@ gulp.task 'templates', ->
 gulp.task 'concat', ['app', 'templates'], ->
   gulp.src ['tmp/templates.js', 'tmp/app.js']
     .pipe(concat('index.js'))
-    .pipe(gulp.dest('.'))
+    .pipe(gulp.dest('dist'))
     .on('finish', -> gutil.log 'index.js done')
 
 gulp.task 'watch', ->
