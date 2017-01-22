@@ -49,6 +49,8 @@ gulp.task 'sass', ->
     .pipe(sass())
     .pipe(gulp.dest('./dist/css'))
     .on('finish', -> gutil.log 'photon.css done')
+  gulp.src 'vendor/animate.css/animate.css'
+    .pipe(gulp.dest('./dist/css'))
 
 gulp.task 'watch', ->
   gulp.watch('coffee/main.coffee', ['main'])
