@@ -5,6 +5,9 @@ gutil   = require 'gulp-util'
 plumber = require 'gulp-plumber'
 eco     = require 'gulp-eco'
 sass    = require 'gulp-sass'
+notify  = require 'gulp-notify'
+webpack = require 'webpack-stream'
+packager = require 'electron-packager'
 
 gulp.task 'main', ->
   gulp.src('./coffee/main.coffee')
@@ -12,7 +15,8 @@ gulp.task 'main', ->
     .pipe(coffee()).on('error', gutil.log)
     .pipe(concat('main.js'))
     .pipe(gulp.dest('dist'))
-    .on('finish', -> gutil.log 'main.js done')
+    .on 'finish', ->
+       gutil.log 'main.js done'
 
 gulp.task 'app', ->
   gulp.src [
@@ -40,6 +44,7 @@ gulp.task 'concat', ['app', 'templates'], ->
   gulp.src ['tmp/vendor.js', 'tmp/templates.js', 'tmp/app.js']
     .pipe(concat('index.js'))
     .pipe(gulp.dest('dist'))
+    .pipe notify    'index.js done', onLast: true
     .on('finish', -> gutil.log 'index.js done')
 
 gulp.task 'sass', ->
@@ -51,6 +56,19 @@ gulp.task 'sass', ->
     .on('finish', -> gutil.log 'photon.css done')
   gulp.src 'vendor/animate.css/animate.css'
     .pipe(gulp.dest('./dist/css'))
+
+gulp.task 'vendor', ->
+  gulp.src 'coffee/vendor.coffee'
+    .pipe webpack(require './webpack.config.coffee')
+
+gulp.task 'pack-linux', ['concat'], ->
+  packager
+    dir: './dist'
+    name: 'app2'
+    arch: 'x64'
+    platform: 'linux'
+    electronVersion: '1.4.14'
+    overwrite: true
 
 gulp.task 'watch', ->
   gulp.watch('coffee/main.coffee', ['main'])

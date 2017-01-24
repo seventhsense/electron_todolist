@@ -526,7 +526,7 @@ window.JST["task_count"] = function (__obj) {
 
     Task.prototype.className = function() {
       var css_class;
-      css_class = 'list-group-item animated bounceInLeft';
+      css_class = 'list-group-item';
       if (this.model.get('done')) {
         css_class += " done";
       }
@@ -544,22 +544,11 @@ window.JST["task_count"] = function (__obj) {
     };
 
     Task.prototype.changeDone = function(event) {
-      if (this.ui.checkbox.prop('checked')) {
-        this.model.set({
-          'done': true
-        });
-      } else {
-        this.model.set({
-          'done': false
-        });
-      }
-      this.model.save();
+      this.model.save({
+        done: !this.model.get('done')
+      });
       this.$el.toggleClass('done');
-      return this.$el.addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (function(_this) {
-        return function() {
-          return _this.$el.removeClass('animated rubberBand');
-        };
-      })(this));
+      return this.$el.animateCss('rubberBand');
     };
 
     Task.prototype.editTask = function(event) {
@@ -571,11 +560,7 @@ window.JST["task_count"] = function (__obj) {
     };
 
     Task.prototype.onRender = function() {
-      return this.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (function(_this) {
-        return function() {
-          return _this.$el.removeClass('animated bounceInLeft');
-        };
-      })(this));
+      return this.$el.aniateCss('bounceInLeft');
     };
 
     return Task;
@@ -645,12 +630,10 @@ window.JST["task_count"] = function (__obj) {
     TaskList.prototype.childView = MyApp.Views.Task;
 
     TaskList.prototype._removeChildView = function(view) {
-      $(view.el).addClass('animated bounceOutRight');
-      return window.setTimeout((function(_this) {
-        return function(a) {
-          return TaskList.__super__._removeChildView.call(_this, a);
-        };
-      })(this), 900, view);
+      $(view.el).animateCss('bounceOutRight');
+      return _.defer(function() {
+        return TaskList.__super__._removeChildView.call(this, view);
+      });
     };
 
     return TaskList;
