@@ -525,11 +525,12 @@ window.JST["task_count"] = function (__obj) {
     Task.prototype.tagName = 'li';
 
     Task.prototype.className = function() {
+      var css_class;
+      css_class = 'list-group-item animated bounce';
       if (this.model.get('done')) {
-        return 'done list-group-item';
-      } else {
-        return 'list-group-item';
+        css_class += " done";
       }
+      return css_class;
     };
 
     Task.prototype.ui = {
@@ -562,6 +563,14 @@ window.JST["task_count"] = function (__obj) {
         model: this.model
       });
       return this.$el.html(view.render().el).find('input').focus();
+    };
+
+    Task.prototype.onRender = function() {
+      return this.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (function(_this) {
+        return function() {
+          return _this.$el.removeClass('animated bounce');
+        };
+      })(this));
     };
 
     return Task;
@@ -629,6 +638,15 @@ window.JST["task_count"] = function (__obj) {
     TaskList.prototype.className = 'list-group';
 
     TaskList.prototype.childView = MyApp.Views.Task;
+
+    TaskList.prototype._removeChildView = function(view) {
+      $(view.el).addClass('animated bounceOutRight');
+      return window.setTimeout((function(_this) {
+        return function(a) {
+          return TaskList.__super__._removeChildView.call(_this, a);
+        };
+      })(this), 900, view);
+    };
 
     return TaskList;
 
