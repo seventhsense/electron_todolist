@@ -554,7 +554,12 @@ window.JST["task_count"] = function (__obj) {
         });
       }
       this.model.save();
-      return this.$el.toggleClass('done');
+      this.$el.toggleClass('done');
+      return this.$el.addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (function(_this) {
+        return function() {
+          return _this.$el.removeClass('animated rubberBand');
+        };
+      })(this));
     };
 
     Task.prototype.editTask = function(event) {
@@ -563,6 +568,14 @@ window.JST["task_count"] = function (__obj) {
         model: this.model
       });
       return this.$el.html(view.render().el).find('input').focus();
+    };
+
+    Task.prototype.onRender = function() {
+      return this.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (function(_this) {
+        return function() {
+          return _this.$el.removeClass('animated bounceInLeft');
+        };
+      })(this));
     };
 
     return Task;

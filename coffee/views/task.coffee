@@ -21,8 +21,12 @@ class MyApp.Views.Task extends Backbone.Marionette.View
       @model.set('done': false)
     @model.save()
     @$el.toggleClass('done')
+    @$el.addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', => @$el.removeClass('animated rubberBand'))
 
   editTask: (event)->
     view = new MyApp.Views.EditForm(model: @model)
     @$el.html(view.render().el)
       .find('input').focus()
+
+  onRender: ->
+    @$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', => @$el.removeClass('animated bounceInLeft'))
