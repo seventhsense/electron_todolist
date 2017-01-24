@@ -15,11 +15,7 @@ class MyApp.Views.Task extends Backbone.Marionette.View
     'blur input#edit_task_content': 'render'
 
   changeDone: (event)->
-    if @ui.checkbox.prop('checked')
-      @model.set('done': true)
-    else
-      @model.set('done': false)
-    @model.save()
+    @model.save done: !@model.get('done')
     @$el.toggleClass('done')
     @$el.animateCss('rubberBand')
 
