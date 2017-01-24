@@ -4,7 +4,5 @@ class MyApp.Views.TaskList extends Backbone.Marionette.CollectionView
   childView: MyApp.Views.Task
 
   _removeChildView: (view)->
-    $(view.el).addClass('animated bounceOutRight')
-    window.setTimeout (a)=>
-      super(a)
-    , 900, view
+    $(view.el).animateCss('bounceOutRight')
+    _.defer -> super(view)

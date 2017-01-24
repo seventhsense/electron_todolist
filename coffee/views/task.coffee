@@ -2,7 +2,7 @@ class MyApp.Views.Task extends Backbone.Marionette.View
   template: JST['task']
   tagName: 'li'
   className: ->
-    css_class = 'list-group-item animated bounceInLeft'
+    css_class = 'list-group-item'
     if @model.get('done') then css_class += " done"
     css_class
 
@@ -21,7 +21,7 @@ class MyApp.Views.Task extends Backbone.Marionette.View
       @model.set('done': false)
     @model.save()
     @$el.toggleClass('done')
-    @$el.addClass('animated rubberBand').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', => @$el.removeClass('animated rubberBand'))
+    @$el.animateCss('rubberBand')
 
   editTask: (event)->
     view = new MyApp.Views.EditForm(model: @model)
@@ -29,4 +29,4 @@ class MyApp.Views.Task extends Backbone.Marionette.View
       .find('input').focus()
 
   onRender: ->
-    @$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', => @$el.removeClass('animated bounceInLeft'))
+    @$el.aniateCss('bounceInLeft')
