@@ -526,7 +526,7 @@ window.JST["task_count"] = function (__obj) {
 
     Task.prototype.className = function() {
       var css_class;
-      css_class = 'list-group-item animated bounce';
+      css_class = 'list-group-item animated bounceInLeft';
       if (this.model.get('done')) {
         css_class += " done";
       }
@@ -563,14 +563,6 @@ window.JST["task_count"] = function (__obj) {
         model: this.model
       });
       return this.$el.html(view.render().el).find('input').focus();
-    };
-
-    Task.prototype.onRender = function() {
-      return this.$el.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', (function(_this) {
-        return function() {
-          return _this.$el.removeClass('animated bounce');
-        };
-      })(this));
     };
 
     return Task;
