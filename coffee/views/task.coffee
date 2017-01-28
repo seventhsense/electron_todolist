@@ -25,4 +25,8 @@ class MyApp.Views.Task extends Backbone.Marionette.View
       .find('input').focus()
 
   onRender: ->
-    @$el.aniateCss('bounceInLeft')
+    @$el.animateCss('bounceInLeft')
+
+  # remove: ->
+    # @$el.animateCss('bounceOutRight')
+    # _.defer -> super()

@@ -1,4 +1,4 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return e[r].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){window.jQuery=window.$=n(1),window._=n(2),window.Backbone=n(3),Backbone.Marionette=n(4),window.Store=n(6),window.BackboNeDB=n(31)},function(e,t,n){var r,i;/*!
+!function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return e[r].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){window.jQuery=window.$=n(1),window._=n(2),window.Backbone=n(3),Backbone.Marionette=n(4),window.Store=n(6),window.BackboNeDB=n(31),$.fn.extend({animateCss:function(e){var t;return t="webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",this.addClass("animated "+e).one(t,function(){return $(this).removeClass("animated "+e)})}})},function(e,t,n){var r,i;/*!
 	 * jQuery JavaScript Library v3.1.1
 	 * https://jquery.com/
 	 *
@@ -284,6 +284,16 @@ window.JST["task_count"] = function (__obj) {
     Models: {}
   };
 
+  $.fn.extend({
+    animateCss: function(animationName) {
+      var animationEnd;
+      animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      return this.addClass('animated ' + animationName).one(animationEnd, function() {
+        return $(this).removeClass('animated ' + animationName);
+      });
+    }
+  });
+
   MyApp.Application = (function(superClass) {
     extend(Application, superClass);
 
@@ -560,7 +570,7 @@ window.JST["task_count"] = function (__obj) {
     };
 
     Task.prototype.onRender = function() {
-      return this.$el.aniateCss('bounceInLeft');
+      return this.$el.animateCss('bounceInLeft');
     };
 
     return Task;
@@ -631,9 +641,11 @@ window.JST["task_count"] = function (__obj) {
 
     TaskList.prototype._removeChildView = function(view) {
       $(view.el).animateCss('bounceOutRight');
-      return _.defer(function() {
-        return TaskList.__super__._removeChildView.call(this, view);
-      });
+      return setTimeout((function(_this) {
+        return function(a) {
+          return TaskList.__super__._removeChildView.call(_this, a);
+        };
+      })(this), 900, view);
     };
 
     return TaskList;
